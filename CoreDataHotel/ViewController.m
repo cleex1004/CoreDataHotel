@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "AutoLayout.h"
+#import "HotelsViewController.h"
+#import "AppDelegate.h"
 
 @interface ViewController ()
 
@@ -28,19 +30,41 @@
     UIButton *browseButton = [self createButtonWithTitle:@"Browse"];
     UIButton *bookButton = [self createButtonWithTitle:@"Book"];
     UIButton *lookupButton = [self createButtonWithTitle:@"Lookup"];
+    //NSLayoutConstraint *topConstraint =
     
-    browseButton.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.75 alpha:1.0];
-    
+    browseButton.backgroundColor = [UIColor blueColor];
     [AutoLayout leadingConstraintFrom:browseButton toView:self.view];
     [AutoLayout trailingConstraintFrom:browseButton toView:self.view];
-    
-    NSLayoutConstraint *browseHeight = [AutoLayout equalHeightConstraintFrom:browseButton toView:self.view withMultiplier:0.33];
-    
+    [AutoLayout equalHeightConstraintFrom:browseButton toView:self.view withMultiplier:0.2];
     [browseButton addTarget:self action:@selector(browseButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    
+//    bookButton.backgroundColor = [UIColor redColor];
+//    [AutoLayout leadingConstraintFrom:bookButton toView:self.view];
+//    [AutoLayout trailingConstraintFrom:bookButton toView:self.view];
+//    [AutoLayout equalHeightConstraintFrom:bookButton toView:self.view withMultiplier:0.2];
+//    [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    lookupButton.backgroundColor = [UIColor greenColor];
+//    [AutoLayout leadingConstraintFrom:lookupButton toView:self.view];
+//    [AutoLayout trailingConstraintFrom:lookupButton toView:self.view];
+//    [AutoLayout equalHeightConstraintFrom:lookupButton toView:self.view withMultiplier:0.2];
+//    [lookupButton addTarget:self action:@selector(lookupButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+//    
 }
 
 -(void)browseButtonSelected{
     NSLog(@"work on this for lab");
+    HotelsViewController *hotelVC = [[HotelsViewController alloc]init];
+    [self.navigationController pushViewController:hotelVC animated:YES];
+    
+}
+
+-(void)bookButtonSelected{
+    
+}
+
+-(void)lookupButtonSelected{
+    
 }
 
 -(UIButton *)createButtonWithTitle:(NSString *)title {
@@ -57,7 +81,6 @@
     [super viewDidLoad];
     
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
