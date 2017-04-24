@@ -13,6 +13,7 @@
 		BCB1BACE1EAE5F3000F00D6C /* CoreDataHotel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BACC1EAE5F3000F00D6C /* CoreDataHotel.xcdatamodeld */; };
 		BCB1BAD01EAE5F3000F00D6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB1BACF1EAE5F3000F00D6C /* Assets.xcassets */; };
 		BCB1BAD31EAE5F3000F00D6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB1BAD11EAE5F3000F00D6C /* LaunchScreen.storyboard */; };
+		BCB1BADC1EAE6D2C00F00D6C /* AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BADB1EAE6D2C00F00D6C /* AutoLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		BCB1BACF1EAE5F3000F00D6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCB1BAD21EAE5F3000F00D6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCB1BAD41EAE5F3000F00D6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCB1BADA1EAE6D2C00F00D6C /* AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLayout.h; sourceTree = "<group>"; };
+		BCB1BADB1EAE6D2C00F00D6C /* AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +63,8 @@
 			children = (
 				BCB1BAC31EAE5F3000F00D6C /* AppDelegate.h */,
 				BCB1BAC41EAE5F3000F00D6C /* AppDelegate.m */,
-				BCB1BAC61EAE5F3000F00D6C /* ViewController.h */,
-				BCB1BAC71EAE5F3000F00D6C /* ViewController.m */,
+				BCB1BADE1EAE6D4400F00D6C /* controller */,
+				BCB1BADD1EAE6D3A00F00D6C /* model */,
 				BCB1BACF1EAE5F3000F00D6C /* Assets.xcassets */,
 				BCB1BAD11EAE5F3000F00D6C /* LaunchScreen.storyboard */,
 				BCB1BAD41EAE5F3000F00D6C /* Info.plist */,
@@ -77,6 +80,24 @@
 				BCB1BAC11EAE5F3000F00D6C /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BCB1BADD1EAE6D3A00F00D6C /* model */ = {
+			isa = PBXGroup;
+			children = (
+				BCB1BADA1EAE6D2C00F00D6C /* AutoLayout.h */,
+				BCB1BADB1EAE6D2C00F00D6C /* AutoLayout.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		BCB1BADE1EAE6D4400F00D6C /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				BCB1BAC61EAE5F3000F00D6C /* ViewController.h */,
+				BCB1BAC71EAE5F3000F00D6C /* ViewController.m */,
+			);
+			name = controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +175,7 @@
 				BCB1BACE1EAE5F3000F00D6C /* CoreDataHotel.xcdatamodeld in Sources */,
 				BCB1BAC51EAE5F3000F00D6C /* AppDelegate.m in Sources */,
 				BCB1BAC21EAE5F3000F00D6C /* main.m in Sources */,
+				BCB1BADC1EAE6D2C00F00D6C /* AutoLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
