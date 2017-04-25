@@ -30,7 +30,7 @@
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Reservation"];
-        request.predicate = [NSPredicate predicateWithFormat:@"startDate <= %@ AND endDate >= @%", self.startDate, self.endDate];
+        request.predicate = [NSPredicate predicateWithFormat:@"startDate <= %@ AND endDate >= %@", self.endDate, self.startDate];
         
         NSError *roomError;
         NSArray *results = [appDelegate.persistentContainer.viewContext executeFetchRequest:request error:&roomError];
@@ -58,6 +58,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
+    NSArray *descriptors = [NSArray arrayWithObject:numberDescriptor];
+    self.availableRooms = [self.availableRooms sortedArrayUsingDescriptors:descriptors];
 }
 
 -(void)setupTableView{
@@ -87,9 +90,6 @@
     BookViewController *bookVC = [[BookViewController alloc]init];
     bookVC.room = self.availableRooms[indexPath.row];
     [self.navigationController pushViewController:bookVC animated:YES];
-//    RoomsViewController *roomVC = [[RoomsViewController alloc]init];
-//    roomVC.hotel = self.allHotels[indexPath.row];
-//    [self.navigationController pushViewController:roomVC animated:YES];
 }
 
 

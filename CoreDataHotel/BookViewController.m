@@ -10,6 +10,8 @@
 #import "AutoLayout.h"
 #import "Guest+CoreDataClass.h"
 #import "Guest+CoreDataProperties.h"
+#import "Reservation+CoreDataClass.h"
+#import "Reservation+CoreDataProperties.h"
 
 
 @interface BookViewController ()
@@ -28,6 +30,7 @@
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupLayout];
+    [self setupBookButton];
 }
 
 -(void)viewDidLoad {
@@ -46,8 +49,14 @@
     [self.emailLabel setTextAlignment:NSTextAlignmentCenter];
     
     self.firstNameField= [[UITextField alloc]init];
-    self.lastNameField= [[UITextField alloc]init];
-    self.emailField= [[UITextField alloc]init];
+    self.firstNameField.backgroundColor = [UIColor lightGrayColor];
+    [self.firstNameField setTextAlignment:NSTextAlignmentCenter];
+    self.lastNameField = [[UITextField alloc]init];
+    self.lastNameField.backgroundColor = [UIColor lightGrayColor];
+    [self.lastNameField setTextAlignment:NSTextAlignmentCenter];
+    self.emailField = [[UITextField alloc]init];
+    self.emailField.backgroundColor = [UIColor lightGrayColor];
+    [self.emailField setTextAlignment:NSTextAlignmentCenter];
     
     self.firstNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.lastNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -67,13 +76,13 @@
     CGFloat statusBarHeight = 20.0;
     CGFloat topMargin = navBarHeight + statusBarHeight;
     CGFloat windowHeight = self.view.frame.size.height;
-    CGFloat height = ((windowHeight - topMargin) / 6);
+    CGFloat height = ((windowHeight - topMargin - 16) / 6);
     
     NSDictionary *viewDictionary = @{@"firstNameLabel": self.firstNameLabel, @"firstNameField": self.firstNameField, @"lastNameLabel": self.lastNameLabel, @"lastNameField": self.lastNameField, @"emailLabel": self.emailLabel, @"emailField": self.emailField};
     
     NSDictionary *metricsDictionary = @{@"topMargin": [NSNumber numberWithFloat:topMargin], @"height": [NSNumber numberWithFloat:height]};
 
-    NSString *visualFormatString = @"V:|-topMargin-[firstNameLabel(==height)][firstNameField(==firstNameLabel)][lastNameLabel(==firstNameLabel)][lastNameField(==firstNameLabel][emailLabel(==firstNameLabel)][emailField(==firstNameLabel)]|";
+    NSString *visualFormatString = @"V:|-topMargin-[firstNameLabel(==height)][firstNameField(==firstNameLabel)][lastNameLabel(==firstNameLabel)][lastNameField(==firstNameLabel)][emailLabel(==firstNameLabel)][emailField(==firstNameLabel)]-16-|";
 
     [AutoLayout constraintsWithVFLForViewDictionary:viewDictionary forMetricsDictionary:metricsDictionary withOptions:0 withVisualFormat:visualFormatString];
     
@@ -83,28 +92,39 @@
     [AutoLayout trailingConstraintFrom:self.lastNameLabel toView:self.view];
     [AutoLayout leadingConstraintFrom:self.emailLabel toView:self.view];
     [AutoLayout trailingConstraintFrom:self.emailLabel toView:self.view];
-    [AutoLayout leadingConstraintFrom:self.firstNameField toView:self.view];
-    [AutoLayout trailingConstraintFrom:self.firstNameField toView:self.view];
-    [AutoLayout leadingConstraintFrom:self.lastNameField toView:self.view];
-    [AutoLayout trailingConstraintFrom:self.lastNameField toView:self.view];
-    [AutoLayout leadingConstraintFrom:self.emailField toView:self.view];
-    [AutoLayout trailingConstraintFrom:self.emailField toView:self.view];
+    [AutoLayout equalWidthConstraintFrom:self.firstNameField toView:self.view withMultiplier:0.9];
+    [AutoLayout equalWidthConstraintFrom:self.lastNameField toView:self.view withMultiplier:0.9];
+    [AutoLayout equalWidthConstraintFrom:self.emailField toView:self.view withMultiplier:0.9];
+    [AutoLayout genericConstraintFrom:self.firstNameField toView:self.view withAttribute:NSLayoutAttributeCenterX];
+    [AutoLayout genericConstraintFrom:self.lastNameField toView:self.view withAttribute:NSLayoutAttributeCenterX];
+    [AutoLayout genericConstraintFrom:self.emailField toView:self.view withAttribute:NSLayoutAttributeCenterX];
 }
 
 -(void)setupBookButton{
-    UIBarButtonItem *bookButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(bookButtonPressed)];
+    UIBarButtonItem *bookButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(bookButtonPressed)];
     [self.navigationItem setRightBarButtonItem:bookButton];
 }
 
 -(void)bookButtonPressed{
+    if (self.firstNameField.text.length == 0) {
+        self.firstNameField.backgroundColor = [UIColor redColor];
+        return;
+    }
+    if (self.lastNameField.text.length == 0) {
+            self.lastNameField.backgroundColor = [UIColor redColor];
+        return;
+    }
+    
     Guest *newGuest;
     newGuest.firstName = self.firstNameField.text;
     newGuest.lastName = self.lastNameField.text;
     newGuest.email = self.emailField.text;
-//    AvailabilityViewController *availabiltyVC = [[AvailabilityViewController alloc]init];
-//    availabiltyVC.endDate = endDate;
-//    availabiltyVC.startDate = startDate;
-//    [self.navigationController pushViewController:availabiltyVC animated:YES];
+    NSLog(@"You have saved a new guest!!!!");
+    NSLog(@"%@", newGuest.firstName);
+    
+//    Reservation *newReservation;
+//    newReservation.
+    
 }
 
 @end
