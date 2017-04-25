@@ -39,7 +39,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.dataSource = self;
-    self.allRooms = [[self.hotel rooms] allObjects];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
+    NSArray *descriptors = [NSArray arrayWithObject:numberDescriptor];
+    self.allRooms = [[[self.hotel rooms] allObjects]sortedArrayUsingDescriptors:descriptors];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
 
