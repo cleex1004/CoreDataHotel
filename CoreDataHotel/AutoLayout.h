@@ -19,6 +19,11 @@
                                       toView:(UIView *)superView
                                withAttribute:(NSLayoutAttribute)attribute;
 
++(NSArray *)constraintsWithVFLForViewDictionary:(NSDictionary *)viewDictionary
+                           forMetricsDictionary:(NSDictionary *)metricsDictionary
+                                    withOptions:(NSLayoutFormatOptions)options
+                               withVisualFormat:(NSString *)visualFormat;
+
 +(NSArray *)fullScreenConstraintsWithVFLForView:(UIView *)view;
 
 +(NSLayoutConstraint *)equalHeightConstraintFrom:(UIView *)view

@@ -12,7 +12,7 @@
 #import "Hotel+CoreDataProperties.h"
 #import "AutoLayout.h"
 
-@interface HotelsViewController () <UITableViewDataSource>
+@interface HotelsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property(strong, nonatomic) NSArray *allHotels;
 @property(strong, nonatomic) UITableView *tableView;
@@ -26,7 +26,6 @@
     [super loadView];
 
     [self setupLayout];
-    //add tableview as subview and apply constraints
 }
 
 - (void)viewDidLoad {
@@ -42,10 +41,6 @@
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
     [AutoLayout fullScreenConstraintsWithVFLForView:self.tableView];
-    //float navBarHeight = CGRectGetHeight(self.navigationController.navigationBar.frame);
-//    [AutoLayout leadingConstraintFrom:_tableView toView:self.view];
-//    [AutoLayout trailingConstraintFrom:_tableView toView:self.view];
-//    [AutoLayout equalHeightConstraintFrom:_tableView toView:self.view withMultiplier:0.5];
 
     
 }
@@ -80,5 +75,7 @@
     
     return cell;
 }
+
+-
 
 @end

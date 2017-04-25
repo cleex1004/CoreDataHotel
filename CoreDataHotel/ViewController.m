@@ -26,30 +26,41 @@
 -(void)setupLayout{
     
     float navBarHeight = CGRectGetHeight(self.navigationController.navigationBar.frame);
+    CGFloat statusBarHeight = 20.0;
     
     UIButton *browseButton = [self createButtonWithTitle:@"Browse"];
     UIButton *bookButton = [self createButtonWithTitle:@"Book"];
     UIButton *lookupButton = [self createButtonWithTitle:@"Lookup"];
-    //NSLayoutConstraint *topConstraint =
+    
+    CGFloat topMargin = navBarHeight + statusBarHeight;
+    CGFloat windowHeight = self.view.frame.size.height;
+    CGFloat buttonHeight = ((windowHeight - topMargin) / 3);
+    
+    NSDictionary *viewDictionary = @{@"browseButton": browseButton, @"bookButton": bookButton, @"lookupButton": lookupButton};
+    
+    NSDictionary *metricsDictionary = @{@"topMargin": [NSNumber numberWithFloat:topMargin], @"buttonHeight": [NSNumber numberWithFloat:buttonHeight]};
+    
+    NSString *visualFormatString = @"V:|-topMargin-[browseButton(==buttonHeight)][bookButton(==browseButton)][lookupButton(==browseButton)]|";
     
     browseButton.backgroundColor = [UIColor blueColor];
+    [AutoLayout constraintsWithVFLForViewDictionary:viewDictionary forMetricsDictionary:metricsDictionary withOptions:0 withVisualFormat:visualFormatString];
     [AutoLayout leadingConstraintFrom:browseButton toView:self.view];
     [AutoLayout trailingConstraintFrom:browseButton toView:self.view];
-    [AutoLayout equalHeightConstraintFrom:browseButton toView:self.view withMultiplier:0.2];
+
     [browseButton addTarget:self action:@selector(browseButtonSelected) forControlEvents:UIControlEventTouchUpInside];
     
-//    bookButton.backgroundColor = [UIColor redColor];
-//    [AutoLayout leadingConstraintFrom:bookButton toView:self.view];
-//    [AutoLayout trailingConstraintFrom:bookButton toView:self.view];
-//    [AutoLayout equalHeightConstraintFrom:bookButton toView:self.view withMultiplier:0.2];
-//    [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    lookupButton.backgroundColor = [UIColor greenColor];
-//    [AutoLayout leadingConstraintFrom:lookupButton toView:self.view];
-//    [AutoLayout trailingConstraintFrom:lookupButton toView:self.view];
-//    [AutoLayout equalHeightConstraintFrom:lookupButton toView:self.view withMultiplier:0.2];
-//    [lookupButton addTarget:self action:@selector(lookupButtonSelected) forControlEvents:UIControlEventTouchUpInside];
-//    
+    bookButton.backgroundColor = [UIColor redColor];
+    [AutoLayout leadingConstraintFrom:bookButton toView:self.view];
+    [AutoLayout trailingConstraintFrom:bookButton toView:self.view];
+
+    [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    
+    lookupButton.backgroundColor = [UIColor greenColor];
+    [AutoLayout leadingConstraintFrom:lookupButton toView:self.view];
+    [AutoLayout trailingConstraintFrom:lookupButton toView:self.view];
+
+    [lookupButton addTarget:self action:@selector(lookupButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 -(void)browseButtonSelected{

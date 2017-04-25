@@ -16,6 +16,7 @@
 		BCB1BADC1EAE6D2C00F00D6C /* AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BADB1EAE6D2C00F00D6C /* AutoLayout.m */; };
 		BCB1BAE01EAE953700F00D6C /* hotels.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB1BADF1EAE953700F00D6C /* hotels.json */; };
 		BCB1BAE81EAEA48300F00D6C /* HotelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BAE71EAEA48300F00D6C /* HotelsViewController.m */; };
+		BCB1BAEB1EAED74A00F00D6C /* RoomsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BAEA1EAED74A00F00D6C /* RoomsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,8 @@
 		BCB1BADF1EAE953700F00D6C /* hotels.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hotels.json; sourceTree = "<group>"; };
 		BCB1BAE61EAEA48300F00D6C /* HotelsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelsViewController.h; sourceTree = "<group>"; };
 		BCB1BAE71EAEA48300F00D6C /* HotelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelsViewController.m; sourceTree = "<group>"; };
+		BCB1BAE91EAED74A00F00D6C /* RoomsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomsViewController.h; sourceTree = "<group>"; };
+		BCB1BAEA1EAED74A00F00D6C /* RoomsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,8 @@
 			children = (
 				BCB1BAC61EAE5F3000F00D6C /* ViewController.h */,
 				BCB1BAC71EAE5F3000F00D6C /* ViewController.m */,
+				BCB1BAE91EAED74A00F00D6C /* RoomsViewController.h */,
+				BCB1BAEA1EAED74A00F00D6C /* RoomsViewController.m */,
 				BCB1BAE61EAEA48300F00D6C /* HotelsViewController.h */,
 				BCB1BAE71EAEA48300F00D6C /* HotelsViewController.m */,
 			);
@@ -192,6 +197,7 @@
 				BCB1BACE1EAE5F3000F00D6C /* CoreDataHotel.xcdatamodeld in Sources */,
 				BCB1BAC51EAE5F3000F00D6C /* AppDelegate.m in Sources */,
 				BCB1BAE81EAEA48300F00D6C /* HotelsViewController.m in Sources */,
+				BCB1BAEB1EAED74A00F00D6C /* RoomsViewController.m in Sources */,
 				BCB1BAC21EAE5F3000F00D6C /* main.m in Sources */,
 				BCB1BADC1EAE6D2C00F00D6C /* AutoLayout.m in Sources */,
 			);

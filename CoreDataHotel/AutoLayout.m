@@ -32,6 +32,20 @@
     return [AutoLayout genericConstraintFrom:view toView:superView withAttribute:attribute andMultiplier:1.0];
 }
 
++(NSArray *)constraintsWithVFLForViewDictionary:(NSDictionary *)viewDictionary
+                           forMetricsDictionary:(NSDictionary *)metricsDictionary
+                                    withOptions:(NSLayoutFormatOptions)options
+                               withVisualFormat:(NSString *)visualFormat{
+    NSArray *constraints = [[NSArray alloc]init];
+    
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:visualFormat
+                                                          options:options
+                                                          metrics:metricsDictionary
+                                                            views:viewDictionary];
+    [NSLayoutConstraint activateConstraints:constraints];
+    return constraints.copy;
+}
+
 +(NSArray *)fullScreenConstraintsWithVFLForView:(UIView *)view{
     NSMutableArray *constraints = [[NSMutableArray alloc]init];
     NSDictionary *viewDictionary = @{@"view": view};
@@ -51,7 +65,6 @@
     [NSLayoutConstraint activateConstraints:constraints];
     
     return constraints.copy;
-    
 }
 
 +(NSLayoutConstraint *)equalHeightConstraintFrom:(UIView *)view
