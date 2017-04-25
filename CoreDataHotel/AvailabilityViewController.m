@@ -13,8 +13,9 @@
 #import "Reservation+CoreDataProperties.h"
 #import "Room+CoreDataClass.h"
 #import "Room+CoreDataProperties.h"
+#import "BookViewController.h"
 
-@interface AvailabilityViewController () <UITableViewDataSource>
+@interface AvailabilityViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property(strong, nonatomic) UITableView *tableView;
 @property(strong, nonatomic) NSArray *availableRooms;
@@ -29,7 +30,7 @@
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Reservation"];
-        request.predicate = [NSPredicate predicateWithFormat:@"startDate <= %@ AND endDate >= @%", self.endDate, self.startDate];
+        request.predicate = [NSPredicate predicateWithFormat:@"startDate <= %@ AND endDate >= @%", self.startDate, self.endDate];
         
         NSError *roomError;
         NSArray *results = [appDelegate.persistentContainer.viewContext executeFetchRequest:request error:&roomError];
@@ -63,6 +64,7 @@
     self.tableView = [[UITableView alloc]init];
     [self.view addSubview:self.tableView];
     self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
     [AutoLayout fullScreenConstraintsWithVFLForView:self.tableView];
@@ -79,6 +81,15 @@
     
     cell.textLabel.text = [NSString stringWithFormat:@"%i", currentRoom.number];
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    BookViewController *bookVC = [[BookViewController alloc]init];
+    bookVC.room = self.availableRooms[indexPath.row];
+    [self.navigationController pushViewController:bookVC animated:YES];
+//    RoomsViewController *roomVC = [[RoomsViewController alloc]init];
+//    roomVC.hotel = self.allHotels[indexPath.row];
+//    [self.navigationController pushViewController:roomVC animated:YES];
 }
 
 
