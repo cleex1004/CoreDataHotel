@@ -25,37 +25,33 @@
 
 -(void)loadView{
     [super loadView];
-    [self setupLayout];
+    [self setupLayoutTableView];
 }
 
--(void)setupLayout{
+-(void)setupLayoutTableView{
     self.tableView = [[UITableView alloc]init];
     [self.view addSubview:self.tableView];
+    self.tableView.dataSource = self;
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
     [AutoLayout fullScreenConstraintsWithVFLForView:self.tableView];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.dataSource = self;
     NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
     NSArray *descriptors = [NSArray arrayWithObject:numberDescriptor];
     self.allRooms = [[[self.hotel rooms] allObjects]sortedArrayUsingDescriptors:descriptors];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+   }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.allRooms.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     Room *currentRoom = self.allRooms[indexPath.row];
 
@@ -63,6 +59,5 @@
     
     return cell;
 }
-
 
 @end

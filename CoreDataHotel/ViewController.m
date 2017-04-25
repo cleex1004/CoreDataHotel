@@ -10,6 +10,7 @@
 #import "AutoLayout.h"
 #import "HotelsViewController.h"
 #import "AppDelegate.h"
+#import "DatePickerViewController.h"
 
 @interface ViewController ()
 
@@ -45,19 +46,16 @@
     browseButton.backgroundColor = [UIColor blueColor];
     [AutoLayout leadingConstraintFrom:browseButton toView:self.view];
     [AutoLayout trailingConstraintFrom:browseButton toView:self.view];
-
     [browseButton addTarget:self action:@selector(browseButtonSelected) forControlEvents:UIControlEventTouchUpInside];
     
     bookButton.backgroundColor = [UIColor redColor];
     [AutoLayout leadingConstraintFrom:bookButton toView:self.view];
     [AutoLayout trailingConstraintFrom:bookButton toView:self.view];
-
     [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
     
     lookupButton.backgroundColor = [UIColor greenColor];
     [AutoLayout leadingConstraintFrom:lookupButton toView:self.view];
     [AutoLayout trailingConstraintFrom:lookupButton toView:self.view];
-
     [lookupButton addTarget:self action:@selector(lookupButtonSelected) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -69,7 +67,8 @@
 }
 
 -(void)bookButtonSelected{
-    
+    DatePickerViewController *dateVC = [[DatePickerViewController alloc]init];
+    [self.navigationController pushViewController:dateVC animated:YES];
 }
 
 -(void)lookupButtonSelected{
@@ -79,7 +78,8 @@
 -(UIButton *)createButtonWithTitle:(NSString *)title {
     UIButton *button = [[UIButton alloc]init];
     [button setTitle:title forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:button];
     
@@ -88,13 +88,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-}
-
 
 @end
