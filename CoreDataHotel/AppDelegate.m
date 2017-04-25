@@ -62,10 +62,9 @@
             
             for (NSDictionary *room in hotel[@"rooms"]) {
                 Room *newRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Room" inManagedObjectContext:self.persistentContainer.viewContext];
-                NSNumber *number = room[@"number"];
-                newRoom.number = [number integerValue];
-                newRoom.beds = (NSInteger)room[@"beds"];
-                newRoom.rate = (NSInteger)room[@"rate"];
+                newRoom.number = [(NSNumber *)room[@"number"]intValue];
+                newRoom.beds = [(NSNumber *)room[@"beds"]intValue];
+                newRoom.rate = [(NSNumber *)room[@"rate"]floatValue];
                 
                 newRoom.hotel = newHotel;
             }
@@ -166,3 +165,11 @@
 }
 
 @end
+
+
+//                Alternative way to format numbers
+//                NSNumber *number = room[@"number"];
+//                newRoom.number = [number integerValue];
+//                NSNumber *beds = room[@"beds"];
+//                newRoom.beds = [beds integerValue];
+//                newRoom.rate = (NSInteger)room[@"rate"];
