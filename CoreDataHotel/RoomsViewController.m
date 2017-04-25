@@ -36,14 +36,12 @@
     [AutoLayout fullScreenConstraintsWithVFLForView:self.tableView];
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.allRooms = [[self.hotel rooms] allObjects];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
