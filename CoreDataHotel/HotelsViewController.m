@@ -11,6 +11,7 @@
 #import "Hotel+CoreDataClass.h"
 #import "Hotel+CoreDataProperties.h"
 #import "AutoLayout.h"
+#import "RoomsViewController.h"
 
 @interface HotelsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -31,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     [self allHotels];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
@@ -41,12 +43,10 @@
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
     [AutoLayout fullScreenConstraintsWithVFLForView:self.tableView];
-
-    
 }
 
 -(NSArray *)allHotels{
-    if (!self.allHotels) {
+    if (!_allHotels) {
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
         NSManagedObjectContext *context = appDelegate.persistentContainer.viewContext;
         
@@ -57,10 +57,10 @@
         if (fetchError) {
             NSLog(@"There was an error fetching hotels from Core Data!");
         }
-        self.allHotels = hotels;
+        _allHotels = hotels;
     }
-    NSLog(@"%@", self.allHotels);
-    return self.allHotels;
+    NSLog(@"%@", _allHotels);
+    return _allHotels;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -76,6 +76,10 @@
     return cell;
 }
 
--
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    RoomsViewController *roomVC = [[RoomsViewController alloc]init];
+    roomVC.hotel = self.allHotels[indexPath.row];
+    [self.navigationController pushViewController:roomVC animated:YES];
+}
 
 @end

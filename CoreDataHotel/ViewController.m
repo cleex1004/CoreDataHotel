@@ -24,14 +24,12 @@
 }
 
 -(void)setupLayout{
-    
-    float navBarHeight = CGRectGetHeight(self.navigationController.navigationBar.frame);
-    CGFloat statusBarHeight = 20.0;
-    
     UIButton *browseButton = [self createButtonWithTitle:@"Browse"];
     UIButton *bookButton = [self createButtonWithTitle:@"Book"];
     UIButton *lookupButton = [self createButtonWithTitle:@"Lookup"];
     
+    float navBarHeight = CGRectGetHeight(self.navigationController.navigationBar.frame);
+    CGFloat statusBarHeight = 20.0;
     CGFloat topMargin = navBarHeight + statusBarHeight;
     CGFloat windowHeight = self.view.frame.size.height;
     CGFloat buttonHeight = ((windowHeight - topMargin) / 3);
@@ -42,8 +40,9 @@
     
     NSString *visualFormatString = @"V:|-topMargin-[browseButton(==buttonHeight)][bookButton(==browseButton)][lookupButton(==browseButton)]|";
     
-    browseButton.backgroundColor = [UIColor blueColor];
     [AutoLayout constraintsWithVFLForViewDictionary:viewDictionary forMetricsDictionary:metricsDictionary withOptions:0 withVisualFormat:visualFormatString];
+    
+    browseButton.backgroundColor = [UIColor blueColor];
     [AutoLayout leadingConstraintFrom:browseButton toView:self.view];
     [AutoLayout trailingConstraintFrom:browseButton toView:self.view];
 
@@ -64,7 +63,6 @@
 }
 
 -(void)browseButtonSelected{
-    NSLog(@"work on this for lab");
     HotelsViewController *hotelVC = [[HotelsViewController alloc]init];
     [self.navigationController pushViewController:hotelVC animated:YES];
     
