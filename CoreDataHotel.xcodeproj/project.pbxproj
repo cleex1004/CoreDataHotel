@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC5AD0811EB1145900584A21 /* AutoLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5AD0801EB1145900584A21 /* AutoLayoutTests.m */; };
 		BCB1BAC21EAE5F3000F00D6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BAC11EAE5F3000F00D6C /* main.m */; };
 		BCB1BAC51EAE5F3000F00D6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BAC41EAE5F3000F00D6C /* AppDelegate.m */; };
 		BCB1BAC81EAE5F3000F00D6C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BAC71EAE5F3000F00D6C /* ViewController.m */; };
@@ -22,7 +23,20 @@
 		BCB1BAF41EAFEDD500F00D6C /* BookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BAF31EAFEDD500F00D6C /* BookViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BC5AD07B1EB1129100584A21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BCB1BAB51EAE5F3000F00D6C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BCB1BABC1EAE5F3000F00D6C;
+			remoteInfo = CoreDataHotel;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		BC5AD0761EB1129100584A21 /* CoreDataHotelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataHotelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC5AD07A1EB1129100584A21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC5AD0801EB1145900584A21 /* AutoLayoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLayoutTests.m; sourceTree = "<group>"; };
 		BCB1BABD1EAE5F3000F00D6C /* CoreDataHotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataHotel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB1BAC11EAE5F3000F00D6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BCB1BAC31EAE5F3000F00D6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -49,6 +63,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BC5AD0731EB1129100584A21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BCB1BABA1EAE5F3000F00D6C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -59,10 +80,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC5AD0771EB1129100584A21 /* CoreDataHotelTests */ = {
+			isa = PBXGroup;
+			children = (
+				BC5AD07A1EB1129100584A21 /* Info.plist */,
+				BC5AD0801EB1145900584A21 /* AutoLayoutTests.m */,
+			);
+			path = CoreDataHotelTests;
+			sourceTree = "<group>";
+		};
 		BCB1BAB41EAE5F3000F00D6C = {
 			isa = PBXGroup;
 			children = (
 				BCB1BABF1EAE5F3000F00D6C /* CoreDataHotel */,
+				BC5AD0771EB1129100584A21 /* CoreDataHotelTests */,
 				BCB1BABE1EAE5F3000F00D6C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB1BABD1EAE5F3000F00D6C /* CoreDataHotel.app */,
+				BC5AD0761EB1129100584A21 /* CoreDataHotelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,13 +110,12 @@
 		BCB1BABF1EAE5F3000F00D6C /* CoreDataHotel */ = {
 			isa = PBXGroup;
 			children = (
+				BCB1BADD1EAE6D3A00F00D6C /* model */,
 				BCB1BAE51EAE961B00F00D6C /* view */,
+				BCB1BADE1EAE6D4400F00D6C /* controller */,
 				BCB1BAC31EAE5F3000F00D6C /* AppDelegate.h */,
 				BCB1BAC41EAE5F3000F00D6C /* AppDelegate.m */,
-				BCB1BADE1EAE6D4400F00D6C /* controller */,
-				BCB1BADD1EAE6D3A00F00D6C /* model */,
 				BCB1BACF1EAE5F3000F00D6C /* Assets.xcassets */,
-				BCB1BAD11EAE5F3000F00D6C /* LaunchScreen.storyboard */,
 				BCB1BAD41EAE5F3000F00D6C /* Info.plist */,
 				BCB1BACC1EAE5F3000F00D6C /* CoreDataHotel.xcdatamodeld */,
 				BCB1BAC01EAE5F3000F00D6C /* Supporting Files */,
@@ -132,6 +163,7 @@
 		BCB1BAE51EAE961B00F00D6C /* view */ = {
 			isa = PBXGroup;
 			children = (
+				BCB1BAD11EAE5F3000F00D6C /* LaunchScreen.storyboard */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -139,6 +171,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BC5AD0751EB1129100584A21 /* CoreDataHotelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC5AD07F1EB1129100584A21 /* Build configuration list for PBXNativeTarget "CoreDataHotelTests" */;
+			buildPhases = (
+				BC5AD0721EB1129100584A21 /* Sources */,
+				BC5AD0731EB1129100584A21 /* Frameworks */,
+				BC5AD0741EB1129100584A21 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC5AD07C1EB1129100584A21 /* PBXTargetDependency */,
+			);
+			name = CoreDataHotelTests;
+			productName = CoreDataHotelTests;
+			productReference = BC5AD0761EB1129100584A21 /* CoreDataHotelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		BCB1BABC1EAE5F3000F00D6C /* CoreDataHotel */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BCB1BAD71EAE5F3000F00D6C /* Build configuration list for PBXNativeTarget "CoreDataHotel" */;
@@ -165,6 +215,12 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Christina Lee";
 				TargetAttributes = {
+					BC5AD0751EB1129100584A21 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = AYB4L38F4S;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BCB1BABC1EAE5F3000F00D6C;
+					};
 					BCB1BABC1EAE5F3000F00D6C = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = AYB4L38F4S;
@@ -186,11 +242,19 @@
 			projectRoot = "";
 			targets = (
 				BCB1BABC1EAE5F3000F00D6C /* CoreDataHotel */,
+				BC5AD0751EB1129100584A21 /* CoreDataHotelTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BC5AD0741EB1129100584A21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BCB1BABB1EAE5F3000F00D6C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -204,6 +268,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BC5AD0721EB1129100584A21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC5AD0811EB1145900584A21 /* AutoLayoutTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BCB1BAB91EAE5F3000F00D6C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -223,6 +295,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BC5AD07C1EB1129100584A21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BCB1BABC1EAE5F3000F00D6C /* CoreDataHotel */;
+			targetProxy = BC5AD07B1EB1129100584A21 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		BCB1BAD11EAE5F3000F00D6C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -235,6 +315,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BC5AD07D1EB1129100584A21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = AYB4L38F4S;
+				INFOPLIST_FILE = CoreDataHotelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.christinalee.CoreDataHotelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoreDataHotel.app/CoreDataHotel";
+			};
+			name = Debug;
+		};
+		BC5AD07E1EB1129100584A21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = AYB4L38F4S;
+				INFOPLIST_FILE = CoreDataHotelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.christinalee.CoreDataHotelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoreDataHotel.app/CoreDataHotel";
+			};
+			name = Release;
+		};
 		BCB1BAD51EAE5F3000F00D6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -354,6 +460,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BC5AD07F1EB1129100584A21 /* Build configuration list for PBXNativeTarget "CoreDataHotelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC5AD07D1EB1129100584A21 /* Debug */,
+				BC5AD07E1EB1129100584A21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		BCB1BAB81EAE5F3000F00D6C /* Build configuration list for PBXProject "CoreDataHotel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -370,6 +484,7 @@
 				BCB1BAD91EAE5F3000F00D6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
