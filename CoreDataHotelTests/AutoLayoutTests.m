@@ -50,6 +50,9 @@
     XCTAssertNotNil(self.testView1, @"self.testView1 is nil!");
     XCTAssertNotNil(self.testView2, @"self.tesView2 is nile!");
     
+    //chained but cannot know which one is nil
+//    XCTAssert(self.testController && self.testView1 && self.testView2, @"One of these properties are nil!");
+    
     id constraint = [AutoLayout genericConstraintFrom:self.testView1 toView:self.testView2 withAttribute:NSLayoutAttributeTop];
     
     XCTAssert([constraint isKindOfClass:[NSLayoutConstraint class]], @"constraint is not an instance of NSLayoutConstraint");
