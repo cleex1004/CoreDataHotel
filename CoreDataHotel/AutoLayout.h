@@ -30,6 +30,10 @@
                                           toView:(UIView *)otherView
                                   withMultiplier:(CGFloat)multiplier;
 
++(NSLayoutConstraint *)equalWidthConstraintFrom:(UIView *)view
+                                          toView:(UIView *)otherView
+                                  withMultiplier:(CGFloat)multiplier;
+
 +(NSLayoutConstraint *)leadingConstraintFrom:(UIView *)view
                                       toView:(UIView *)otherView;
 

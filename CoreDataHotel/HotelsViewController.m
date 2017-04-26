@@ -25,24 +25,23 @@
 
 -(void)loadView{
     [super loadView];
-
-    [self setupLayout];
+    [self setupLayoutTableView];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
     [self allHotels];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
 
--(void)setupLayout{
+-(void)setupLayoutTableView{
     self.tableView = [[UITableView alloc]init];
     [self.view addSubview:self.tableView];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
     [AutoLayout fullScreenConstraintsWithVFLForView:self.tableView];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
 
 -(NSArray *)allHotels{
@@ -59,7 +58,7 @@
         }
         _allHotels = hotels;
     }
-    NSLog(@"%@", _allHotels);
+//    NSLog(@"%@", _allHotels);
     return _allHotels;
 }
 
@@ -68,7 +67,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     Hotel *currentHotel = self.allHotels[indexPath.row];
     
     cell.textLabel.text = currentHotel.name;
