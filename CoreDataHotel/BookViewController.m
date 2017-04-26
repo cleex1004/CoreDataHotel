@@ -115,19 +115,23 @@
             self.lastNameField.backgroundColor = [UIColor redColor];
         return;
     }
-    Reservation *newReservation = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation" inManagedObjectContext:self.persistentContainer.viewContext];
+    AppDelegate *appDelefate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = appDelefate.persistentContainer.viewContext;
+    
+    Reservation *newReservation = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation" inManagedObjectContext:context];
     newReservation.startDate = self.startDate;
     newReservation.endDate = self.endDate;
+    newReservation.room = self.room;
+    self.room.reservation = newReservation;
     
-    Guest *newGuest = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:self.persistentContainer.viewContext];
-    newGuest.firstName = self.firstNameField.text;
-    newGuest.lastName = self.lastNameField.text;
-    newGuest.email = self.emailField.text;
-    
-    newGuest.reservation = newReservation;
+    newReservation.guest = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
+    newReservation.guest.firstName = self.firstNameField.text;
+    newReservation.guest.lastName = self.lastNameField.text;
+    newReservation.guest.email = self.emailField.text;
+
     
     NSError *saveError;
-    [self.persistentContainer.viewContext save:&saveError];
+    [context save:&saveError];
     
     if (saveError) {
         NSLog(@"There was an error saving to Core Data");
@@ -136,10 +140,6 @@
     }
     
     NSLog(@"You have saved a new guest!!!!");
-    NSLog(@"%@", newGuest.firstName);
-    
-
-    
 }
 
 @end

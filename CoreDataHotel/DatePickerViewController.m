@@ -45,12 +45,12 @@
             NSCalendar *theCalendar = [NSCalendar currentCalendar];
             NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
             self.endDate.date = nextDate;
-//            return;
+            return;
         }
 
         return;
     }
-        AvailabilityViewController *availabiltyVC = [[AvailabilityViewController alloc]init];
+    AvailabilityViewController *availabiltyVC = [[AvailabilityViewController alloc]init];
     availabiltyVC.endDate = endDate;
     availabiltyVC.startDate = startDate;
     [self.navigationController pushViewController:availabiltyVC animated:YES];
