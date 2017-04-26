@@ -13,6 +13,10 @@
 #import "Reservation+CoreDataClass.h"
 #import "Guest+CoreDataClass.h"
 #import "Guest+CoreDataProperties.h"
+#import "RoomsViewController.h"
+#import "Reservation+CoreDataProperties.h"
+#import "Hotel+CoreDataClass.h"
+#import "Hotel+CoreDataProperties.h"
 
 
 @interface LookupReservationViewController () <UITableViewDataSource>
@@ -56,12 +60,13 @@
         guestRequest.predicate = [NSPredicate predicateWithFormat:@"self IN %@", reservedGuests];
         
         NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+        NSSortDescriptor *hotelSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"reservation.room.hotel.name" ascending:YES];
         
-        guestRequest.sortDescriptors = @[nameSortDescriptor];
+        guestRequest.sortDescriptors = @[nameSortDescriptor, hotelSortDescriptor];
         
         NSError *guestError;
         
-        _reservations = [[NSFetchedResultsController alloc]initWithFetchRequest:guestRequest managedObjectContext:appDelegate.persistentContainer.viewContext sectionNameKeyPath:@"firstName" cacheName:nil];
+        _reservations = [[NSFetchedResultsController alloc]initWithFetchRequest:guestRequest managedObjectContext:appDelegate.persistentContainer.viewContext sectionNameKeyPath:@"reservation.room.hotel.name" cacheName:nil];
         
         [_reservations performFetch:&guestError];
     }
@@ -86,6 +91,16 @@
 //    cell.textLabel.text = [NSString stringWithFormat:@"Room: %i (%i beds, $%f per night)", currentRoom.number, currentRoom.beds, currentRoom.rate];
         cell.textLabel.text = [NSString stringWithFormat:@"%@", currentReservation.firstName];
     return cell;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    id<NSFetchedResultsSectionInfo> sectionInfo = [self.reservations.sections objectAtIndex:section];
+    
+    return sectionInfo.name;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.reservations.sections.count;
 }
 
 

@@ -119,8 +119,8 @@
             self.lastNameField.backgroundColor = [UIColor redColor];
         return;
     }
-    AppDelegate *appDelefate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = appDelefate.persistentContainer.viewContext;
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = appDelegate.persistentContainer.viewContext;
     
     Reservation *newReservation = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation" inManagedObjectContext:context];
     newReservation.startDate = self.startDate;
