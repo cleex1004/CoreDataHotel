@@ -7,8 +7,16 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
+#import "Hotel+CoreDataClass.h"
+#import "Hotel+CoreDataProperties.h"
+#import "Room+CoreDataClass.h"
+#import "Room+CoreDataProperties.h"
 
 @interface AppDelegate ()
+
+@property(strong, nonatomic) UINavigationController *navController;
+@property(strong, nonatomic) ViewController *viewController;
 
 @end
 
@@ -17,9 +25,70 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self setupRootViewController];
+    [self bootStrapApp];
     return YES;
 }
 
+-(void)bootStrapApp{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Hotel"];
+    NSError *error;
+    NSInteger count = [self.persistentContainer.viewContext countForFetchRequest:request error:&error]; //reference to error object
+    
+    if(error) {
+        NSLog(@"%@", error.localizedDescription);
+    }
+    
+    if(count == 0) {
+        NSDictionary *hotels = [[NSDictionary alloc]init];
+        
+        NSString *path = [[NSBundle mainBundle]pathForResource:@"hotels" ofType:@"json"];
+        NSData *jsonData = [NSData dataWithContentsOfFile:path];
+        
+        NSError *jsonError;
+        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&jsonError];
+        
+        if(jsonError) {
+            NSLog(@"%@", jsonError.localizedDescription);
+        }
+        
+        hotels = jsonDictionary[@"Hotels"];
+        
+        for (NSDictionary *hotel in hotels) {
+            Hotel *newHotel = [NSEntityDescription insertNewObjectForEntityForName:@"Hotel" inManagedObjectContext:self.persistentContainer.viewContext];
+            newHotel.name = hotel[@"name"];
+            newHotel.location = hotel[@"location"];
+            newHotel.stars = (NSInteger)hotel[@"stars"];
+            
+            for (NSDictionary *room in hotel[@"rooms"]) {
+                Room *newRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Room" inManagedObjectContext:self.persistentContainer.viewContext];
+                newRoom.number = [(NSNumber *)room[@"number"]intValue];
+                newRoom.beds = [(NSNumber *)room[@"beds"]intValue];
+                newRoom.rate = [(NSNumber *)room[@"rate"]floatValue];
+                
+                newRoom.hotel = newHotel;
+            }
+        }
+        NSError *saveError;
+        [self.persistentContainer.viewContext save:&saveError];
+        
+        if (saveError) {
+            NSLog(@"There was an error saving to Core Data");
+        } else {
+            NSLog(@"Sucessfully saved to Core Data");
+        }
+        
+    }
+    
+}
+
+-(void)setupRootViewController{
+    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+    self.viewController = [[ViewController alloc]init];
+    self.navController = [[UINavigationController alloc]initWithRootViewController:self.viewController];
+    self.window.rootViewController = self.navController;
+    [self.window makeKeyAndVisible];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -96,3 +165,11 @@
 }
 
 @end
+
+
+//                Alternative way to format numbers
+//                NSNumber *number = room[@"number"];
+//                newRoom.number = [number integerValue];
+//                NSNumber *beds = room[@"beds"];
+//                newRoom.beds = [beds integerValue];
+//                newRoom.rate = (NSInteger)room[@"rate"];
