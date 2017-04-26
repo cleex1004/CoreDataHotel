@@ -13,6 +13,7 @@
 #import "Reservation+CoreDataClass.h"
 #import "Reservation+CoreDataProperties.h"
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 
 @interface BookViewController ()
@@ -36,6 +37,9 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+//    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
+//    NSArray *descriptors = [NSArray arrayWithObject:numberDescriptor];
+//    self.allRooms = [[[self.hotel rooms] allObjects]sortedArrayUsingDescriptors:descriptors];
 }
 
 -(void)setupLayout{
@@ -122,7 +126,7 @@
     newReservation.startDate = self.startDate;
     newReservation.endDate = self.endDate;
     newReservation.room = self.room;
-    self.room.reservation = newReservation;
+    self.room.reservation = [self.room.reservation setByAddingObject:newReservation];
     
     newReservation.guest = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
     newReservation.guest.firstName = self.firstNameField.text;
@@ -140,6 +144,9 @@
     }
     
     NSLog(@"You have saved a new guest!!!!");
+    
+    ViewController *homeVC = [[ViewController alloc]init];
+    [self.navigationController pushViewController:homeVC animated:YES];
 }
 
 @end

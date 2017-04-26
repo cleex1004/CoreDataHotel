@@ -11,6 +11,8 @@
 #import "AppDelegate.h"
 #import "Reservation+CoreDataProperties.h"
 #import "Reservation+CoreDataClass.h"
+#import "Guest+CoreDataClass.h"
+#import "Guest+CoreDataProperties.h"
 
 
 @interface LookupReservationViewController () <UITableViewDataSource>
@@ -45,63 +47,27 @@
         NSError *reservationError;
         NSArray *results = [appDelegate.persistentContainer.viewContext executeFetchRequest:request error:&reservationError];
         
-        NSMutableArray *guests = [[NSMutableArray alloc]init];
+        NSMutableArray *reservedGuests = [[NSMutableArray alloc]init];
         for (Reservation *reservation in results) {
-            [unavailableRooms addObject:reservation.room];
+            [reservedGuests addObject:reservation.guest];
         }
         
-        NSFetchRequest *roomRequest = [NSFetchRequest fetchRequestWithEntityName:@"Room"];
-        roomRequest.predicate = [NSPredicate predicateWithFormat:@"NOT self IN %@", unavailableRooms];
+        NSFetchRequest *guestRequest = [NSFetchRequest fetchRequestWithEntityName:@"Guest"];
+        guestRequest.predicate = [NSPredicate predicateWithFormat:@"self IN %@", reservedGuests];
         
-        NSSortDescriptor *roomSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"hotel.name" ascending:YES];
-        NSSortDescriptor *roomNumberSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
+        NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
         
-        roomRequest.sortDescriptors = @[roomSortDescriptor, roomNumberSortDescriptor];
+        guestRequest.sortDescriptors = @[nameSortDescriptor];
         
-        NSError *bookedRoomError;
+        NSError *guestError;
         
-        _reservations = [[NSFetchedResultsController alloc]initWithFetchRequest:roomRequest managedObjectContext:appDelegate.persistentContainer.viewContext sectionNameKeyPath:@"hotel.name" cacheName:nil];
+        _reservations = [[NSFetchedResultsController alloc]initWithFetchRequest:guestRequest managedObjectContext:appDelegate.persistentContainer.viewContext sectionNameKeyPath:@"firstName" cacheName:nil];
         
-        [_reservations performFetch:&bookedRoomError];
+        [_reservations performFetch:&guestError];
     }
     
     return _reservations;
 }
-
-//-(NSFetchedResultsController *)availableRooms{
-//    if (!_availableRooms) {
-//        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-//        
-//        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Reservation"];
-//        request.predicate = [NSPredicate predicateWithFormat:@"startDate <= %@ AND endDate >= %@", self.endDate, self.startDate];
-//        
-//        NSError *roomError;
-//        NSArray *results = [appDelegate.persistentContainer.viewContext executeFetchRequest:request error:&roomError];
-//        
-//        NSMutableArray *unavailableRooms = [[NSMutableArray alloc]init];
-//        for (Reservation *reservation in results) {
-//            [unavailableRooms addObject:reservation.room];
-//        }
-//        
-//        NSFetchRequest *roomRequest = [NSFetchRequest fetchRequestWithEntityName:@"Room"];
-//        roomRequest.predicate = [NSPredicate predicateWithFormat:@"NOT self IN %@", unavailableRooms];
-//        
-//        NSSortDescriptor *roomSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"hotel.name" ascending:YES];
-//        NSSortDescriptor *roomNumberSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
-//        
-//        roomRequest.sortDescriptors = @[roomSortDescriptor, roomNumberSortDescriptor];
-//        
-//        NSError *availableRoomError;
-//        
-//        _availableRooms = [[NSFetchedResultsController alloc]initWithFetchRequest:roomRequest managedObjectContext:appDelegate.persistentContainer.viewContext sectionNameKeyPath:@"hotel.name" cacheName:nil];
-//        
-//        [_availableRooms performFetch:&availableRoomError];
-//        //        _availableRooms = [appDelegate.persistentContainer.viewContext executeFetchRequest:roomRequest error:&availableRoomError];
-//    }
-//    
-//    return _availableRooms;
-//}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -115,10 +81,10 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    Room *currentReservation = [self.reservations objectAtIndexPath:indexPath];
+    Guest *currentReservation = [self.reservations objectAtIndexPath:indexPath];
 
 //    cell.textLabel.text = [NSString stringWithFormat:@"Room: %i (%i beds, $%f per night)", currentRoom.number, currentRoom.beds, currentRoom.rate];
-        cell.textLabel.text = [NSString stringWithFormat:@"%i", currentReservation.firstName];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", currentReservation.firstName];
     return cell;
 }
 
