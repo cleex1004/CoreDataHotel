@@ -12,6 +12,7 @@
 #import "Guest+CoreDataProperties.h"
 #import "Reservation+CoreDataClass.h"
 #import "Reservation+CoreDataProperties.h"
+#import "AppDelegate.h"
 
 
 @interface BookViewController ()
@@ -114,16 +115,30 @@
             self.lastNameField.backgroundColor = [UIColor redColor];
         return;
     }
+    Reservation *newReservation = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation" inManagedObjectContext:self.persistentContainer.viewContext];
+    newReservation.startDate = self.startDate;
+    newReservation.endDate = self.endDate;
     
-    Guest *newGuest;
+    Guest *newGuest = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:self.persistentContainer.viewContext];
     newGuest.firstName = self.firstNameField.text;
     newGuest.lastName = self.lastNameField.text;
     newGuest.email = self.emailField.text;
+    
+    newGuest.reservation = newReservation;
+    
+    NSError *saveError;
+    [self.persistentContainer.viewContext save:&saveError];
+    
+    if (saveError) {
+        NSLog(@"There was an error saving to Core Data");
+    } else {
+        NSLog(@"Sucessfully saved to Core Data");
+    }
+    
     NSLog(@"You have saved a new guest!!!!");
     NSLog(@"%@", newGuest.firstName);
     
-//    Reservation *newReservation;
-//    newReservation.
+
     
 }
 

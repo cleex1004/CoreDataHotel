@@ -89,6 +89,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BookViewController *bookVC = [[BookViewController alloc]init];
     bookVC.room = self.availableRooms[indexPath.row];
+    bookVC.startDate = self.startDate;
+    bookVC.endDate = self.endDate;
     [self.navigationController pushViewController:bookVC animated:YES];
 }
 
