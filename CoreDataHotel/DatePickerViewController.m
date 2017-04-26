@@ -38,18 +38,19 @@
     NSDate *startDate = self.startDate.date;
     if ([[NSDate date] timeIntervalSinceReferenceDate] > [startDate timeIntervalSinceReferenceDate]) {
         self.startDate.date = [NSDate date];
+        if ([endDate timeIntervalSinceReferenceDate] < [startDate timeIntervalSinceReferenceDate]) {
+            self.startDate.date = [NSDate date];
+            NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+            dayComponent.day = 1;
+            NSCalendar *theCalendar = [NSCalendar currentCalendar];
+            NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+            self.endDate.date = nextDate;
+//            return;
+        }
+
         return;
     }
-    if ([endDate timeIntervalSinceReferenceDate] < [startDate timeIntervalSinceReferenceDate]) {
-        self.startDate.date = [NSDate date];
-        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
-        dayComponent.day = 1;
-        NSCalendar *theCalendar = [NSCalendar currentCalendar];
-        NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
-        self.endDate.date = nextDate;
-        return;
-    }
-    AvailabilityViewController *availabiltyVC = [[AvailabilityViewController alloc]init];
+        AvailabilityViewController *availabiltyVC = [[AvailabilityViewController alloc]init];
     availabiltyVC.endDate = endDate;
     availabiltyVC.startDate = startDate;
     [self.navigationController pushViewController:availabiltyVC animated:YES];
