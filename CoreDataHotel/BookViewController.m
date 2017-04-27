@@ -6,6 +6,7 @@
 //  Copyright © 2017 Christina Lee. All rights reserved.
 //
 
+@import Crashlytics;
 #import "BookViewController.h"
 #import "AutoLayout.h"
 #import "Guest+CoreDataClass.h"
@@ -139,8 +140,16 @@
     
     if (saveError) {
         NSLog(@"There was an error saving to Core Data");
+        
+        NSDictionary *attributesDictionary = @{@"Save Error" : saveError.localizedDescription};
+        
+        [Answers logCustomEventWithName:@"Save Reservation Error" customAttributes:attributesDictionary];
+        
     } else {
         NSLog(@"Sucessfully saved to Core Data");
+        [Answers logCustomEventWithName:@"Saved New Reservation" customAttributes:nil];
+        
+        //[self.navigationController popToRootViewControllerAnimated:YES];
     }
     
     NSLog(@"You have saved a new guest!!!!");
