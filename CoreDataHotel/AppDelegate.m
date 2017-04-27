@@ -6,6 +6,8 @@
 //  Copyright © 2017 Christina Lee. All rights reserved.
 //
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "Hotel+CoreDataClass.h"
@@ -27,6 +29,7 @@
     // Override point for customization after application launch.
     [self setupRootViewController];
     [self bootStrapApp];
+    [Fabric with:@[[Answers class], [Crashlytics class]]];
     return YES;
 }
 
@@ -64,7 +67,7 @@
                 Room *newRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Room" inManagedObjectContext:self.persistentContainer.viewContext];
                 newRoom.number = [(NSNumber *)room[@"number"]intValue];
                 newRoom.beds = [(NSNumber *)room[@"beds"]intValue];
-                newRoom.rate = [(NSNumber *)room[@"cost"]floatValue];
+                newRoom.cost = [(NSNumber *)room[@"cost"]floatValue];
                 
                 newRoom.hotel = newHotel;
             }

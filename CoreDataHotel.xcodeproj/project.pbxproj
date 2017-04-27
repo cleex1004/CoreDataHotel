@@ -10,6 +10,8 @@
 		BC5AD0811EB1145900584A21 /* AutoLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5AD0801EB1145900584A21 /* AutoLayoutTests.m */; };
 		BC5AD0871EB137B300584A21 /* LookupReservationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5AD0861EB137B300584A21 /* LookupReservationViewController.m */; };
 		BC5AD08A1EB2607500584A21 /* mappingModel1.0-1.1.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = BC5AD0891EB2607500584A21 /* mappingModel1.0-1.1.xcmappingmodel */; };
+		BC9225291EB26E1500304B65 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9225271EB26E1500304B65 /* Fabric.framework */; };
+		BC92252C1EB26F9A00304B65 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC92252B1EB26F9A00304B65 /* Crashlytics.framework */; };
 		BCB1BAC21EAE5F3000F00D6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BAC11EAE5F3000F00D6C /* main.m */; };
 		BCB1BAC51EAE5F3000F00D6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BAC41EAE5F3000F00D6C /* AppDelegate.m */; };
 		BCB1BAC81EAE5F3000F00D6C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB1BAC71EAE5F3000F00D6C /* ViewController.m */; };
@@ -43,6 +45,8 @@
 		BC5AD0861EB137B300584A21 /* LookupReservationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookupReservationViewController.m; sourceTree = "<group>"; };
 		BC5AD0881EB25DB300584A21 /* CoreDataHotel1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataHotel1.1.xcdatamodel; sourceTree = "<group>"; };
 		BC5AD0891EB2607500584A21 /* mappingModel1.0-1.1.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = "mappingModel1.0-1.1.xcmappingmodel"; sourceTree = "<group>"; };
+		BC9225271EB26E1500304B65 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		BC92252B1EB26F9A00304B65 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		BCB1BABD1EAE5F3000F00D6C /* CoreDataHotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataHotel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB1BAC11EAE5F3000F00D6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BCB1BAC31EAE5F3000F00D6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC92252C1EB26F9A00304B65 /* Crashlytics.framework in Frameworks */,
+				BC9225291EB26E1500304B65 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +108,8 @@
 				BCB1BABF1EAE5F3000F00D6C /* CoreDataHotel */,
 				BC5AD0771EB1129100584A21 /* CoreDataHotelTests */,
 				BCB1BABE1EAE5F3000F00D6C /* Products */,
+				BC92252B1EB26F9A00304B65 /* Crashlytics.framework */,
+				BC9225271EB26E1500304B65 /* Fabric.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -466,6 +474,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = AYB4L38F4S;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CoreDataHotel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.christinalee.CoreDataHotel;
@@ -478,6 +490,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = AYB4L38F4S;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CoreDataHotel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.christinalee.CoreDataHotel;
