@@ -64,7 +64,7 @@
                 Room *newRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Room" inManagedObjectContext:self.persistentContainer.viewContext];
                 newRoom.number = [(NSNumber *)room[@"number"]intValue];
                 newRoom.beds = [(NSNumber *)room[@"beds"]intValue];
-                newRoom.rate = [(NSNumber *)room[@"rate"]floatValue];
+                newRoom.rate = [(NSNumber *)room[@"cost"]floatValue];
                 
                 newRoom.hotel = newHotel;
             }

@@ -96,7 +96,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     Room *currentRoom = [self.availableRooms objectAtIndexPath:indexPath];
 //    Room *currentRoom = self.availableRooms[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"Room: %i (%i beds, $%f per night)", currentRoom.number, currentRoom.beds, currentRoom.rate];
+    cell.textLabel.text = [NSString stringWithFormat:@"Room: %i (%i beds, $%f per night)", currentRoom.number, currentRoom.beds, currentRoom.cost];
 //    cell.textLabel.text = [NSString stringWithFormat:@"%i", currentRoom.number];
     return cell;
 }
