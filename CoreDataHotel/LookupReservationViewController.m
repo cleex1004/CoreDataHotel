@@ -17,7 +17,8 @@
 #import "Reservation+CoreDataProperties.h"
 #import "Hotel+CoreDataClass.h"
 #import "Hotel+CoreDataProperties.h"
-
+#import "Room+CoreDataClass.h"
+#import "Room+CoreDataProperties.h"
 
 @interface LookupReservationViewController () <UITableViewDataSource, UISearchBarDelegate>
 @property(strong, nonatomic) UITableView *tableView;
@@ -37,18 +38,18 @@ BOOL isSearching;
 }
 
 -(void)setupLayoutView{
+    self.searchBar = [[UISearchBar alloc]init];
+    [self.view addSubview:self.searchBar];
+    self.searchBar.delegate = self;
+    self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    
     self.tableView = [[UITableView alloc]init];
     [self.view addSubview:self.tableView];
     self.tableView.dataSource = self;
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    
-    self.searchBar = [[UISearchBar alloc]init];
-    [self.view addSubview:self.searchBar];
-    self.searchBar.delegate = self;
-    self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     float navBarHeight = CGRectGetHeight(self.navigationController.navigationBar.frame);
     CGFloat statusBarHeight = 20.0;
     CGFloat topMargin = navBarHeight + statusBarHeight;
@@ -67,7 +68,6 @@ BOOL isSearching;
     [AutoLayout trailingConstraintFrom:self.searchBar toView:self.view];
     [AutoLayout leadingConstraintFrom:self.tableView toView:self.view];
     [AutoLayout trailingConstraintFrom:self.tableView toView:self.view];
-
 }
 
 -(NSArray *)allReservations{
@@ -79,61 +79,64 @@ BOOL isSearching;
         NSError *reservationError;
         NSArray *results = [context executeFetchRequest:request error:&reservationError];
         
-        NSMutableArray *reservedGuests = [[NSMutableArray alloc]init];
-        for (Reservation *reservation in results) {
-            [reservedGuests addObject:reservation.guest];
-        }
+//        NSMutableArray *reservedGuests = [[NSMutableArray alloc]init];
+//        for (Reservation *reservation in results) {
+//            [reservedGuests addObject:reservation.guest];
+//        }
+//        NSFetchRequest *guestRequest = [NSFetchRequest fetchRequestWithEntityName:@"Guest"];
+//        guestRequest.predicate = [NSPredicate predicateWithFormat:@"self IN %@", reservedGuests];
+//        
+//        NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+//
+//        guestRequest.sortDescriptors = @[nameSortDescriptor];
+//        
+//        NSError *guestError;
+//        
+//        NSArray *allresults = [context executeFetchRequest:guestRequest error:&guestError];
+//        
+//        if (guestError) {
+//            NSLog(@"There was an error fetching hotels from Core Data!");
+//        }
         
-        NSFetchRequest *guestRequest = [NSFetchRequest fetchRequestWithEntityName:@"Guest"];
-        guestRequest.predicate = [NSPredicate predicateWithFormat:@"self IN %@", reservedGuests];
-        
-        NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
-
-        guestRequest.sortDescriptors = @[nameSortDescriptor];
-        
-        NSError *guestError;
-        
-        NSArray *allresults = [context executeFetchRequest:guestRequest error:&guestError];
-        
-        if (guestError) {
-            NSLog(@"There was an error fetching hotels from Core Data!");
-        }
-        
-        _allReservations = allresults;
+        _allReservations = results;
     }
     return _allReservations;
 }
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (self.filteredReservations.count == 0) {
-        return self.allReservations.count;
-    } else {
+    if (isSearching) {
         return self.filteredReservations.count;
+    }
+    else {
+        return self.allReservations.count;
     }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    Guest *currentReservation;
-    if ([self.searchBar.text  isEqualToString:@""]) {
+    Reservation *currentReservation;
+    if (self.filteredReservations == nil) {
         currentReservation = self.allReservations[indexPath.row];
     } else {
         currentReservation = self.filteredReservations[indexPath.row];
     }
-
-//    cell.textLabel.text = [NSString stringWithFormat:@"Room: %i (%i beds, $%f per night)", currentRoom.number, currentRoom.beds, currentRoom.rate];
-        cell.textLabel.text = [NSString stringWithFormat:@"Guest: %@ %@", currentReservation.firstName, currentReservation.lastName];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ has reserved Room: %i at %@ from %@ to %@", currentReservation.guest.firstName, currentReservation.guest.lastName, currentReservation.room.number, currentReservation.room.hotel.name, [dateFormatter stringFromDate: currentReservation.startDate], [dateFormatter stringFromDate: currentReservation.endDate]];
+    
+    cell.textLabel.numberOfLines = 0;
+    
     return cell;
 }
 
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    [searchBar setShowsCancelButton:YES animated:NO];
     isSearching = YES;
 }
 
@@ -145,7 +148,7 @@ BOOL isSearching;
         self.filteredReservations = nil;
     } else {
         self.filteredReservations = [[NSMutableArray alloc]init];
-        self.filteredReservations = [[self.allReservations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"guest.lastName CONTAINS[c] %@ or guest.firstName CONTAINS[c] %@", searchBar.text, searchBar.text]] mutableCopy];
+        self.filteredReservations = [[self.allReservations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"guest.lastName CONTAINS %@ or guest.firstName CONTAINS %@", searchText, searchText]] mutableCopy];
     }
     [self.tableView reloadData];
 }
@@ -154,19 +157,16 @@ BOOL isSearching;
     searchBar.text = @"";
     self.filteredReservations = nil;
     [self.tableView reloadData];
-    [searchBar resignFirstResponder];
+    [self resignFirstResponder];
     isSearching = NO;
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     if (searchBar.text != nil) {
+        [self resignFirstResponder];
         self.filteredReservations = [[NSMutableArray alloc]init];
-        self.filteredReservations = [[self.allReservations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"guest.lastName CONTAINS[c] %@ or guest.firstName CONTAINS[c] %@", searchBar.text, searchBar.text]] mutableCopy];
-    } else {
-        self.filteredReservations = nil;
+        self.filteredReservations = [[self.allReservations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"guest.lastName CONTAINS %@ or guest.firstName CONTAINS %@", searchBar.text, searchBar.text]] mutableCopy];
     }
-    [self.tableView reloadData];
-    [searchBar resignFirstResponder];
     isSearching = NO;
 }
 
