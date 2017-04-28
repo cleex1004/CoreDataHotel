@@ -15,6 +15,7 @@
 #import "Reservation+CoreDataProperties.h"
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "HotelService.h"
 
 
 @interface BookViewController ()
