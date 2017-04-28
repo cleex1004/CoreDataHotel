@@ -14,6 +14,7 @@
 @property(strong, nonatomic) UIViewController *testController;
 @property(strong, nonatomic) UIView *testView1;
 @property(strong, nonatomic) UIView *testView2;
+@property(strong, nonatomic) NSNumber *testMultiplier;
 
 
 @end
@@ -26,6 +27,7 @@
     self.testController = [[UIViewController alloc]init];
     self.testView1 = [[UIView alloc]init];
     self.testView2 = [[UIView alloc]init];
+    self.testMultiplier = [[NSNumber alloc]init];
     [self.testController.view addSubview:self.testView1];
     [self.testController.view addSubview:self.testView2];
 }
@@ -37,7 +39,7 @@
     self.testController = nil;
     self.testView1 = nil;
     self.testView2 = nil;
-    
+    self.testMultiplier = nil;
     [super tearDown];
 }
 
@@ -48,7 +50,7 @@
 -(void)testGenericConstraintFromToViewWithAttribute{
     XCTAssertNotNil(self.testController, @"The testController is nil!");
     XCTAssertNotNil(self.testView1, @"self.testView1 is nil!");
-    XCTAssertNotNil(self.testView2, @"self.tesView2 is nile!");
+    XCTAssertNotNil(self.testView2, @"self.tesView2 is nil!");
     
     //chained but cannot know which one is nil
 //    XCTAssert(self.testController && self.testView1 && self.testView2, @"One of these properties are nil!");
@@ -60,12 +62,60 @@
     XCTAssertTrue([(NSLayoutConstraint *)constraint isActive], @"Constraint was not activated");
 }
 
+-(void)testEqualHeightConstraintFromToViewWithMultiplier{
+    XCTAssertNotNil(self.testView1, @"self.testView1 is nil!");
+    XCTAssertNotNil(self.testView2, @"self.tesView2 is nil!");
+
+    
+    CGFloat floatMultiplier = [self.testMultiplier doubleValue];
+
+    id constraint = [AutoLayout equalHeightConstraintFrom:self.testView1 toView:self.testView2 withMultiplier:floatMultiplier];
+    
+    XCTAssert([constraint isKindOfClass:[NSLayoutConstraint class]], @"constraint is not an instance of NSLayoutConstraint");
+    
+    XCTAssertTrue([(NSLayoutConstraint *)constraint isActive], @"Constraint was not activated");
+}
+
+-(void)testEqualWidthConstraintFromToViewWithMultiplier{
+    XCTAssertNotNil(self.testView1, @"self.testView1 is nil!");
+    XCTAssertNotNil(self.testView2, @"self.tesView2 is nil!");
+
+    
+    CGFloat floatMultiplier = [self.testMultiplier doubleValue];
+    
+    id constraint = [AutoLayout equalWidthConstraintFrom:self.testView1 toView:self.testView2 withMultiplier:floatMultiplier];
+    
+    XCTAssert([constraint isKindOfClass:[NSLayoutConstraint class]], @"constraint is not an instance of NSLayoutConstraint");
+    
+    XCTAssertTrue([(NSLayoutConstraint *)constraint isActive], @"Constraint was not activated");
+
+}
+
 @end
 
 
 
 
 
+//
+//+(NSLayoutConstraint *)equalWidthConstraintFrom:(UIView *)view
+//toView:(UIView *)otherView
+//withMultiplier:(CGFloat)multiplier{
+//    NSLayoutConstraint *widthConstraint = [AutoLayout genericConstraintFrom:view toView:otherView withAttribute:NSLayoutAttributeWidth andMultiplier:multiplier];
+//    
+//    return widthConstraint;
+//}
+//
+//+(NSLayoutConstraint *)leadingConstraintFrom:(UIView *)view
+//toView:(UIView *)otherView{
+//    return [AutoLayout genericConstraintFrom:view toView:otherView withAttribute:NSLayoutAttributeLeading];
+//    
+//}
+//
+//+(NSLayoutConstraint *)trailingConstraintFrom:(UIView *)view
+//toView:(UIView *)otherView{
+//    return [AutoLayout genericConstraintFrom:view toView:otherView withAttribute:NSLayoutAttributeTrailing];
+//}
 
 
 

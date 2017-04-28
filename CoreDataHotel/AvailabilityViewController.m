@@ -16,6 +16,7 @@
 #import "BookViewController.h"
 #import "Hotel+CoreDataClass.h"
 #import "Hotel+CoreDataProperties.h"
+#import "HotelService.h"
 
 @interface AvailabilityViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -96,7 +97,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     Room *currentRoom = [self.availableRooms objectAtIndexPath:indexPath];
 //    Room *currentRoom = self.availableRooms[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"Room: %i (%i beds, $%f per night)", currentRoom.number, currentRoom.beds, currentRoom.rate];
+    cell.textLabel.text = [NSString stringWithFormat:@"Room: %i (%i beds, $%f per night)", currentRoom.number, currentRoom.beds, currentRoom.cost];
 //    cell.textLabel.text = [NSString stringWithFormat:@"%i", currentRoom.number];
     return cell;
 }

@@ -6,6 +6,8 @@
 //  Copyright © 2017 Christina Lee. All rights reserved.
 //
 
+@import  Crashlytics;
+
 #import "ViewController.h"
 #import "AutoLayout.h"
 #import "HotelsViewController.h"
@@ -62,12 +64,16 @@
 }
 
 -(void)browseButtonSelected{
+    [Answers logCustomEventWithName:@"Browse Button Pressed" customAttributes:nil];
+    
     HotelsViewController *hotelVC = [[HotelsViewController alloc]init];
     [self.navigationController pushViewController:hotelVC animated:YES];
     
 }
 
 -(void)bookButtonSelected{
+    [Answers logCustomEventWithName:@"Book Button Pressed" customAttributes:nil];
+    
     DatePickerViewController *dateVC = [[DatePickerViewController alloc]init];
     [self.navigationController pushViewController:dateVC animated:YES];
 }
